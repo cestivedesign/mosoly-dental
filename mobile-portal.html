@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Mosoly Dental - Betegportál</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+    tailwind.config = {
+        theme: { extend: {
+            colors: {
+                "tertiary":"#03494f","outline-variant":"#c2c6d4","on-tertiary":"#ffffff",
+                "surface-container-low":"#f3f4f5","surface-container-high":"#e7e8e9",
+                "on-primary":"#ffffff","surface-variant":"#e1e3e4","outline":"#727784",
+                "tertiary-container":"#276167","primary-container":"#0056b3","error":"#ba1a1a",
+                "primary":"#003f87","primary-fixed-dim":"#acc7ff","tertiary-fixed":"#b3ecf3",
+                "on-tertiary-container":"#a1dae1","surface-container-lowest":"#ffffff",
+                "surface-container-highest":"#e1e3e4","on-surface-variant":"#424752",
+                "on-surface":"#191c1d","surface-container":"#edeeef","surface":"#f8f9fa",
+                "primary-fixed":"#d7e2ff","on-primary-container":"#bbd0ff","background":"#f8f9fa"
+            },
+            fontFamily: { headline:["Manrope"], body:["Inter"], label:["Inter"] }
+        }}
+    }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24; display:inline-block; vertical-align:middle; }
+        body { background:#f8f9fa; font-family:'Inter',sans-serif; color:#191c1d; }
+    </style>
+</head>
+<body class="text-on-surface">
+
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-sm shadow-blue-900/5 flex justify-between items-center px-6 py-4">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high flex items-center justify-center">
+            <img alt="Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvuxpYh-Rk0Lq05OkS-0TnFndyCoa7qqy-a6Uw9JOuOOZCJN0gTEtKRbxkl7EnKDNdZGNNd4OVe4THBqwM4-x8fsvLmxRSUppimcJ2tYlhCRvloXCe96m6kMUnHjthC4WJ6WFosj-jnfa9W0r85gybcCc8JfVsTY488jNHuQhdGq9m-oXJvXu0HCsY2DjEumYNYw19jczWwi8UQL7kssAwllPBTbdsZWMX4pPv9D5MsQ1XF5A1gqzIHkz69lgpvxc7cViIHrulbrM"/>
+        </div>
+        <h1 class="font-headline font-bold text-lg tracking-tight bg-gradient-to-br from-blue-900 to-blue-700 bg-clip-text text-transparent">Mosoly Dental</h1>
+    </div>
+    <button class="text-primary font-semibold text-sm px-3 py-1.5 rounded-full hover:bg-slate-100/50">HU|EN|DE</button>
+</header>
+
+<main class="pt-24 pb-32 px-6 space-y-8">
+    <!-- Welcome -->
+    <section class="relative">
+        <span class="text-[10px] font-semibold tracking-widest uppercase text-tertiary mb-2 block">Üdvözöljük újra</span>
+        <h2 class="font-headline text-3xl font-extrabold tracking-tight text-primary leading-tight">Szia, Kovács János!</h2>
+        <p class="text-on-surface-variant text-sm mt-2 max-w-[80%] leading-relaxed">Itt találja a legfrissebb információkat kezeléseiről és következő időpontjáról.</p>
+    </section>
+
+    <!-- Következő időpont -->
+    <section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+        <div class="relative z-10">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-headline font-bold text-on-surface">Következő időpont</h3>
+                <span class="material-symbols-outlined text-primary">calendar_today</span>
+            </div>
+            <div class="flex items-end gap-4">
+                <div>
+                    <p class="text-3xl font-headline font-extrabold text-primary tracking-tighter">Okt 24.</p>
+                    <p class="text-sm font-semibold text-on-surface-variant">Csütörtök, 09:30</p>
+                </div>
+                <div class="h-10 w-px bg-outline-variant/30 self-center"></div>
+                <div>
+                    <p class="text-sm font-bold text-on-surface">Fogszabályozás</p>
+                    <p class="text-xs text-on-surface-variant">Dr. Szabó Elena</p>
+                </div>
+            </div>
+            <button class="mt-6 w-full py-3 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm shadow-lg shadow-primary/20" onclick="alert('Időpont hozzáadva a naptárhoz!')">Naptárhoz adás</button>
+        </div>
+    </section>
+
+    <!-- Bento: History + Docs -->
+    <div class="grid grid-cols-2 gap-4">
+        <section class="col-span-1 bg-surface-container-low rounded-xl p-4 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-headline font-bold text-xs text-on-surface uppercase tracking-wider">Előzmények</h3>
+                <span class="material-symbols-outlined text-tertiary text-lg">history</span>
+            </div>
+            <div class="space-y-4 flex-grow">
+                <div class="relative pl-3 border-l-2 border-tertiary/20">
+                    <p class="text-[11px] font-bold">Fogkőeltávolítás</p>
+                    <p class="text-[10px] text-on-surface-variant">2023. Szept. 12.</p>
+                </div>
+                <div class="relative pl-3 border-l-2 border-transparent">
+                    <p class="text-[11px] font-bold">Konzultáció</p>
+                    <p class="text-[10px] text-on-surface-variant">2023. Aug. 05.</p>
+                </div>
+                <div class="relative pl-3 border-l-2 border-transparent">
+                    <p class="text-[11px] font-bold">Fogfehérítés</p>
+                    <p class="text-[10px] text-on-surface-variant">2023. Jún. 18.</p>
+                </div>
+            </div>
+            <button class="mt-4 text-[10px] font-bold text-tertiary flex items-center gap-1">Összes <span class="material-symbols-outlined text-xs">arrow_forward</span></button>
+        </section>
+        <section class="col-span-1">
+            <div class="bg-tertiary text-on-tertiary rounded-xl p-4 h-full flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                    <span class="material-symbols-outlined">radiology</span>
+                    <span class="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-full">ÚJ</span>
+                </div>
+                <div>
+                    <h3 class="font-headline font-bold text-xs uppercase tracking-wider mb-1">Dokumentumok</h3>
+                    <p class="text-[10px] opacity-80">Panorama X-ray, CT lelet</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Számláim -->
+    <section class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/10">
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h3 class="font-headline font-bold text-on-surface text-lg">Számláim</h3>
+                <p class="text-sm text-on-surface-variant">Aktuális egyenleg</p>
+            </div>
+            <div class="text-right">
+                <p class="text-2xl font-headline font-extrabold text-on-surface">12.500 Ft</p>
+                <p class="text-[10px] text-error font-bold uppercase tracking-widest">Fizetésre vár</p>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button class="flex-1 py-3 rounded-full bg-surface-container-highest text-primary font-bold text-sm">Részletek</button>
+            <button class="flex-[2] py-3 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm shadow-lg flex items-center justify-center gap-2" onclick="alert('Online fizetés modul hamarosan elérhető!')">
+                <span class="material-symbols-outlined text-sm">credit_card</span>Online fizetés
+            </button>
+        </div>
+    </section>
+
+    <!-- Gyors műveletek -->
+    <section class="grid grid-cols-2 gap-3">
+        <a href="mobile-booking.html" class="flex items-center justify-center gap-2 p-4 bg-primary text-on-primary rounded-xl font-bold text-sm">
+            <span class="material-symbols-outlined text-lg">add_circle</span>Új időpont
+        </a>
+        <a href="tel:+3612345678" class="flex items-center justify-center gap-2 p-4 bg-surface-container-highest text-on-surface rounded-xl font-bold text-sm">
+            <span class="material-symbols-outlined text-lg">call</span>Hívás
+        </a>
+    </section>
+</main>
+
+<!-- Chat Bubble -->
+<div class="fixed bottom-24 right-6 z-40">
+    <button onclick="alert('Chat funkció hamarosan elérhető!')" class="w-14 h-14 rounded-full bg-tertiary text-on-tertiary shadow-xl flex items-center justify-center hover:scale-105 transition-transform relative">
+        <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1;">chat_bubble</span>
+        <div class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-[10px] flex items-center justify-center rounded-full border-2 border-surface font-bold">2</div>
+    </button>
+</div>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-white/70 backdrop-blur-md rounded-t-2xl shadow-[0_-10px_30px_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-6 pt-3">
+    <a class="flex flex-col items-center text-slate-400 px-3 py-1.5" href="mobile-home.html"><span class="material-symbols-outlined">home</span><span class="text-[10px] font-semibold uppercase mt-1">Home</span></a>
+    <a class="flex flex-col items-center text-slate-400 px-3 py-1.5" href="mobile-booking.html"><span class="material-symbols-outlined">calendar_today</span><span class="text-[10px] font-semibold uppercase mt-1">Foglalás</span></a>
+    <a class="flex flex-col items-center text-blue-900 bg-teal-50 rounded-xl px-3 py-1.5" href="mobile-portal.html"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">person</span><span class="text-[10px] font-semibold uppercase mt-1">Portál</span></a>
+    <a class="flex flex-col items-center text-slate-400 px-3 py-1.5" href="mobile-admin.html"><span class="material-symbols-outlined">dashboard</span><span class="text-[10px] font-semibold uppercase mt-1">Admin</span></a>
+    <a class="flex flex-col items-center text-error px-3 py-1.5" href="tel:+3615550123"><span class="material-symbols-outlined">emergency</span><span class="text-[10px] font-semibold uppercase mt-1">Sürgős</span></a>
+</nav>
+</body>
+</html>
