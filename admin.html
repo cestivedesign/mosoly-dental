@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html class="dark" lang="hu">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Mosoly Dental Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#d7e2ff",
+                        "primary-container": "#0056b3",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#03494f",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-container": "#656464",
+                        "on-tertiary-container": "#a1dae1",
+                        "on-background": "#191c1d",
+                        "outline": "#727784",
+                        "on-tertiary-fixed-variant": "#0d4e54",
+                        "on-primary-fixed-variant": "#004491",
+                        "primary": "#003f87",
+                        "on-primary-container": "#bbd0ff",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "background": "#f8f9fa",
+                        "surface-container": "#edeeef",
+                        "surface": "#f8f9fa",
+                        "on-surface": "#191c1d",
+                        "surface-tint": "#115cb9",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed-dim": "#acc7ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dadb",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#e4e2e1",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface-variant": "#424752",
+                        "on-primary-fixed": "#001a40",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c2c6d4",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#5f5e5e",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#002023",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#b3ecf3",
+                        "tertiary-fixed-dim": "#98d0d7",
+                        "inverse-primary": "#acc7ff",
+                        "tertiary-container": "#276167"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Manrope"],
+                        body: ["Inter"],
+                        label: ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 antialiased overflow-hidden">
+<div class="flex h-screen overflow-hidden">
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <!-- SideNavBar -->
+    <aside id="sidebar" class="fixed lg:relative h-screen w-72 flex flex-col bg-slate-950 border-r border-slate-800/50 p-4 transition-all duration-300 z-50 -translate-x-full lg:translate-x-0">
+        <!-- Brand -->
+        <div class="px-4 py-6 mb-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold tracking-tighter text-white hover:text-blue-400 transition-colors">Mosoly Dental</a>
+            <button class="lg:hidden text-slate-400 hover:text-white" onclick="toggleSidebar()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Profile Snippet -->
+        <div class="flex items-center gap-3 px-4 py-4 mb-6 bg-slate-900/40 rounded-xl border border-slate-800/30">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-slate-800 ring-2 ring-blue-900/30">
+                <img alt="Kovács János" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhhpbvqQs6bf2bDWJIV6ftAU8iNbiHiYuxT9MtmIzzQCL4viIbqzh1UGfjHxB0POl6Nyk4gme4j607fJKTddpl__V-vT1V95jDB7c5JgB3q81K8RLhvsXSqFvekuFXL9TlwdPpgqBFGxx0qUhsju48c79bxmgeUsQQrz2X9iUVYuR4344i0t50dqU2SU5bk4QiglOYiDsjYZqV6wt-L7N_f38o6ef3GeTrq8hewUdK1HxIlUcY03yXFWGfPIUkM98rdAngSYlcCkg" class="w-full h-full object-cover"/>
+            </div>
+            <div class="overflow-hidden">
+                <p class="text-sm font-semibold text-white truncate">Kovács János</p>
+                <p class="text-xs text-slate-500 truncate">Admin</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 space-y-1 overflow-y-auto px-2 custom-scrollbar">
+            <a class="nav-link flex items-center gap-3 px-4 py-3 bg-slate-900 text-white font-semibold rounded-lg shadow-sm transition-all duration-200" href="#" data-page="dashboard">
+                <span class="material-symbols-outlined text-blue-400">dashboard</span>
+                <span>Irányítópult</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="appointments">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span>Időpontok</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="patients">
+                <span class="material-symbols-outlined">groups</span>
+                <span>Páciensek (CRM)</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="treatments">
+                <span class="material-symbols-outlined">medical_services</span>
+                <span>Kezelések</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="doctors">
+                <span class="material-symbols-outlined">stethoscope</span>
+                <span>Orvosok</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="billing">
+                <span class="material-symbols-outlined">receipt_long</span>
+                <span>Számlázás</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="blog">
+                <span class="material-symbols-outlined">article</span>
+                <span>Blog</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="automation">
+                <span class="material-symbols-outlined">auto_awesome</span>
+                <span>Automatizálások</span>
+            </a>
+            <a class="nav-link flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-900/50 hover:text-slate-200 rounded-lg transition-all duration-200" href="#" data-page="analytics">
+                <span class="material-symbols-outlined">analytics</span>
+                <span>Analitika</span>
+            </a>
+        </nav>
+
+        <!-- CTA -->
+        <div class="px-4 py-6 mt-auto">
+            <a href="idopontfoglalas.html" class="block w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded-full font-semibold shadow-lg hover:opacity-90 active:scale-95 transition-all text-sm text-center">
+                Időpontfoglalás
+            </a>
+        </div>
+
+        <!-- Footer Tabs -->
+        <div class="border-t border-slate-800/50 pt-4 px-2 space-y-1">
+            <a class="nav-link flex items-center gap-3 px-4 py-2 text-slate-500 hover:text-slate-200 transition-colors text-sm" href="#" data-page="settings">
+                <span class="material-symbols-outlined text-[20px]">settings</span>
+                <span>Beállítások</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2 text-rose-400/70 hover:text-rose-400 transition-colors text-sm" href="index.html">
+                <span class="material-symbols-outlined text-[20px]">logout</span>
+                <span>Kijelentkezés</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-screen overflow-y-auto bg-slate-950 p-4 md:p-8 custom-scrollbar">
+
+        <!-- Mobile Header -->
+        <div class="flex items-center gap-4 mb-6 lg:hidden">
+            <button onclick="toggleSidebar()" class="p-2 text-slate-400 hover:text-white bg-slate-900 rounded-xl border border-slate-800">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <span class="text-xl font-bold tracking-tighter text-white">Mosoly Dental</span>
+        </div>
+
+        <!-- ===================== DASHBOARD PAGE ===================== -->
+        <div id="page-dashboard" class="page-content">
+            <!-- Header -->
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Irányítópult</h1>
+                    <p class="text-slate-400">Üdvözöljük újra a Mosoly Dental admin felületén!</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="showPage('patients')" class="flex items-center gap-2 px-4 md:px-5 py-2.5 bg-slate-900 text-white border border-slate-800 rounded-xl hover:bg-slate-800 transition-all font-medium text-sm">
+                        <span class="material-symbols-outlined text-[20px]">person_add</span>
+                        <span class="hidden sm:inline">Új páciens</span>
+                    </button>
+                    <button id="new-appointment-btn" class="flex items-center gap-2 px-4 md:px-5 py-2.5 bg-white text-slate-950 rounded-xl hover:bg-slate-100 transition-all font-bold shadow-xl shadow-white/5 text-sm">
+                        <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        <span class="hidden sm:inline">Új időpont</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- KPI Stats Cards -->
+            <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
+                <div class="bg-slate-900/50 p-4 md:p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 md:p-3 bg-blue-900/20 text-blue-400 rounded-xl">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                        </div>
+                        <span class="text-emerald-400 text-xs font-bold px-2 py-1 bg-emerald-400/10 rounded-full">+8%</span>
+                    </div>
+                    <h3 class="text-slate-400 text-xs md:text-sm font-medium mb-1">Heti időpontok</h3>
+                    <p class="text-2xl md:text-3xl font-bold text-white">48</p>
+                </div>
+                <div class="bg-slate-900/50 p-4 md:p-6 rounded-2xl border border-slate-800/50 hover:border-tertiary/50 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 md:p-3 bg-tertiary/20 text-on-tertiary-container rounded-xl">
+                            <span class="material-symbols-outlined">group_add</span>
+                        </div>
+                        <span class="text-emerald-400 text-xs font-bold px-2 py-1 bg-emerald-400/10 rounded-full">+12%</span>
+                    </div>
+                    <h3 class="text-slate-400 text-xs md:text-sm font-medium mb-1">Új páciensek</h3>
+                    <p class="text-2xl md:text-3xl font-bold text-white">12</p>
+                </div>
+                <div class="bg-slate-900/50 p-4 md:p-6 rounded-2xl border border-slate-800/50 hover:border-blue-700/50 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 md:p-3 bg-primary/20 text-blue-400 rounded-xl">
+                            <span class="material-symbols-outlined">payments</span>
+                        </div>
+                        <span class="text-slate-500 text-xs font-medium px-2 py-1 bg-slate-800 rounded-full">Stabil</span>
+                    </div>
+                    <h3 class="text-slate-400 text-xs md:text-sm font-medium mb-1">Havi bevétel</h3>
+                    <p class="text-2xl md:text-3xl font-bold text-white">4.2M <span class="text-base md:text-lg font-medium text-slate-500">Ft</span></p>
+                </div>
+                <div class="bg-slate-900/50 p-4 md:p-6 rounded-2xl border border-slate-800/50 hover:border-tertiary-fixed/50 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 md:p-3 bg-tertiary/20 text-on-tertiary-container rounded-xl">
+                            <span class="material-symbols-outlined">bolt</span>
+                        </div>
+                        <span class="text-blue-400 text-xs font-bold px-2 py-1 bg-blue-400/10 rounded-full">Active</span>
+                    </div>
+                    <h3 class="text-slate-400 text-xs md:text-sm font-medium mb-1">AI interakciók</h3>
+                    <p class="text-2xl md:text-3xl font-bold text-white">156</p>
+                </div>
+            </section>
+
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Appointments Table -->
+                <section class="lg:col-span-2 space-y-6">
+                    <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 overflow-hidden">
+                        <div class="px-4 md:px-8 py-6 border-b border-slate-800/50 flex justify-between items-center">
+                            <h2 class="text-xl font-bold text-white">Mai időpontok</h2>
+                            <button onclick="showPage('appointments')" class="text-sm text-blue-400 font-medium hover:underline">Összes mutatása</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left min-w-[600px]">
+                                <thead class="bg-slate-900/50 text-slate-500 text-xs uppercase tracking-wider">
+                                    <tr>
+                                        <th class="px-4 md:px-8 py-4 font-semibold">Páciens</th>
+                                        <th class="px-4 md:px-6 py-4 font-semibold">Orvos</th>
+                                        <th class="px-4 md:px-6 py-4 font-semibold">Időpont</th>
+                                        <th class="px-4 md:px-6 py-4 font-semibold">Kezelés</th>
+                                        <th class="px-4 md:px-6 py-4 font-semibold">Státusz</th>
+                                        <th class="px-4 py-4 font-semibold">Művelet</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointments-tbody" class="divide-y divide-slate-800/30">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Visual -->
+                    <div class="grid grid-cols-1 sm:grid-cols-5 gap-6 h-auto sm:h-64">
+                        <div class="sm:col-span-3 bg-slate-900/50 rounded-2xl overflow-hidden relative group border border-slate-800/50 min-h-[200px]">
+                            <img alt="Clinic Interior" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxW6LNgJHnQ3_DW6L2oNOSDOiS2j1HhvX4w-1ceyOR2OP7FKqde8eKucujhLiTgpBQnUh5lyFJEUav2a8f41kJQ8SiZ18MVbVJWVa7Mfc7iV-hx7cBc6gQIsfiMKnobfj-kvC0hhtbPyRHdXnQF_d61mRNv5xaNjbWxAExAlihsSHH2IizWPfjud5V6R701W86oJ9QJ_sl7aXfRgPfbzbdS0yI0dRfOQzaOb9_RgKkTwAjfUTPtYdklIA17YYO86x-tLjOUOCY9rA"/>
+                            <div class="relative p-8 h-full flex flex-col justify-end">
+                                <span class="text-tertiary-fixed text-xs font-bold uppercase tracking-widest mb-2">Klinikai Környezet</span>
+                                <h3 class="text-2xl font-bold text-white max-w-xs">Prémium élmény, precíz technológia.</h3>
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2 bg-gradient-to-br from-tertiary to-tertiary-container rounded-2xl p-8 flex flex-col justify-between text-white border border-white/5 min-h-[160px]">
+                            <span class="material-symbols-outlined text-4xl opacity-50">analytics</span>
+                            <div>
+                                <p class="text-sm font-medium text-on-tertiary-container mb-1">Havi hatékonyság</p>
+                                <p class="text-4xl font-bold">94%</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Sidebar -->
+                <aside class="space-y-6">
+                    <!-- AI Panel -->
+                    <section class="bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800/50 p-6 md:p-8">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined">smart_toy</span>
+                            </div>
+                            <div>
+                                <h2 class="font-bold text-white">AI Automatizálás</h2>
+                                <p class="text-xs text-slate-500">Valós idejű feldolgozás</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-400">Emlékeztető SMS/Email</span>
+                                    <span class="text-white font-semibold">124 kiküldve</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-500 rounded-full transition-all duration-1000" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-400">Follow-up kérdőívek</span>
+                                    <span class="text-white font-semibold">32 válasz</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-tertiary-fixed rounded-full transition-all duration-1000" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-emerald-400 text-[20px] mt-0.5">check_circle</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Rendszer aktív</p>
+                                        <p class="text-xs text-slate-500">Minden automatizálás hiba nélkül fut.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="showPage('automation')" class="w-full mt-8 py-3 rounded-xl border border-slate-800 text-slate-400 text-sm font-semibold hover:bg-slate-800 hover:text-white transition-all">
+                            Automatizálások kezelése
+                        </button>
+                    </section>
+
+                    <!-- Doctors -->
+                    <section class="bg-slate-900/30 rounded-2xl border border-slate-800/50 p-6">
+                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Ma dolgozó orvosok</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img alt="Dr. Szabó Anna" class="w-10 h-10 rounded-full border-2 border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE0dyxd8mzt1LyoFkXcISjEfNf2HG4ZQ-i_yczkPE33O5soukcrWA7FSn1d4soFZ3SUZ53voTGp6-n8Yl5i_PJriYjlw7lJpb4qrw40VA1AHTnkuHfA3Z7mWZVW-Rxmd8VQLbg4TO0_1t6uTdTw37c30_v1-9zxjOJ8u6dBoS21Fko-APbdfp2C5sZi_lKuhP-KMMJnM9hq5wjchr3ey5DmW_yAdJk2NPjjN63xh6V9LtPiN1BZuqHp-dhHkWbekcw9hAPaeMRDf4"/>
+                                    <div>
+                                        <p class="text-sm font-bold text-white">Dr. Szabó Anna</p>
+                                        <p class="text-xs text-slate-500">Szájsebészet</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-blue-900/30 text-blue-400 px-2 py-0.5 rounded font-bold uppercase">9/12 Slot</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img alt="Dr. Horváth Péter" class="w-10 h-10 rounded-full border-2 border-slate-800 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAroMFqRpjcW4cj7Lebd9jue2EPLTWdkq8I1mViWAWnVm_Rk5EJl60b3YndglhyGDVGKgppMt9cqsm-pm9G4O-eulJi9ZFKETHCSmyu0KXGaXIHGeiOwEpyZxyA8WayCMfB6kiOOqTqEkdeHfBopEFOgKgyEyB13KofBvp8knp1g019BaHqn-Wz3pU3U3fyxZsmq0ebCbRuclWMeIAIM6-tK8lFIJNeQMtAX7Cmvbt4pfk4D5-hU7p3BMSRiJ54gTcXCpcKlyB7h4"/>
+                                    <div>
+                                        <p class="text-sm font-bold text-white">Dr. Horváth Péter</p>
+                                        <p class="text-xs text-slate-500">Fogpótlástan</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-blue-900/30 text-blue-400 px-2 py-0.5 rounded font-bold uppercase">5/10 Slot</span>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+
+        <!-- ===================== APPOINTMENTS PAGE ===================== -->
+        <div id="page-appointments" class="page-content hidden">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Időpontok</h1>
+                    <p class="text-slate-400">Minden foglalás és időpont kezelése</p>
+                </div>
+                <button id="open-new-appointment-modal" class="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-950 rounded-xl hover:bg-slate-100 transition-all font-bold shadow-xl shadow-white/5 text-sm">
+                    <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                    Új időpont felvétele
+                </button>
+            </header>
+            <!-- Filter bar -->
+            <div class="flex flex-wrap gap-3 mb-6">
+                <select class="bg-slate-900 border border-slate-800 text-slate-300 rounded-xl px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option>Minden státusz</option>
+                    <option>Confirmed</option>
+                    <option>Checked-in</option>
+                    <option>Completed</option>
+                    <option>Cancelled</option>
+                </select>
+                <select class="bg-slate-900 border border-slate-800 text-slate-300 rounded-xl px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option>Minden orvos</option>
+                    <option>Dr. Szabó Anna</option>
+                    <option>Dr. Horváth Péter</option>
+                    <option>Dr. Kiss Eszter</option>
+                </select>
+                <input type="text" placeholder="Páciens keresése..." class="bg-slate-900 border border-slate-800 text-slate-300 rounded-xl px-4 py-2 text-sm focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"/>
+            </div>
+            <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left min-w-[700px]">
+                        <thead class="bg-slate-900/50 text-slate-500 text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold">Páciens</th>
+                                <th class="px-6 py-4 font-semibold">Orvos</th>
+                                <th class="px-6 py-4 font-semibold">Dátum</th>
+                                <th class="px-6 py-4 font-semibold">Időpont</th>
+                                <th class="px-6 py-4 font-semibold">Kezelés</th>
+                                <th class="px-6 py-4 font-semibold">Státusz</th>
+                                <th class="px-6 py-4 font-semibold">Művelet</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-appointments-tbody" class="divide-y divide-slate-800/30">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== PATIENTS PAGE ===================== -->
+        <div id="page-patients" class="page-content hidden">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Páciensek (CRM)</h1>
+                    <p class="text-slate-400">Páciens nyilvántartás és kapcsolatkezelés</p>
+                </div>
+                <button id="open-new-patient-modal" class="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-950 rounded-xl hover:bg-slate-100 transition-all font-bold shadow-xl shadow-white/5 text-sm">
+                    <span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Új páciens rögzítése
+                </button>
+            </header>
+            <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left min-w-[600px]">
+                        <thead class="bg-slate-900/50 text-slate-500 text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4 font-semibold">Név</th>
+                                <th class="px-6 py-4 font-semibold">Email</th>
+                                <th class="px-6 py-4 font-semibold">Telefon</th>
+                                <th class="px-6 py-4 font-semibold">Utolsó vizit</th>
+                                <th class="px-6 py-4 font-semibold">Művelet</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patients-tbody" class="divide-y divide-slate-800/30">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== GENERIC SUB-PAGES ===================== -->
+        <div id="page-treatments" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Kezelések</h1>
+            <p class="text-slate-400 mb-10">Kezelési típusok és árak kezelése</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="treatments-grid"></div>
+        </div>
+
+        <div id="page-doctors" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Orvosok</h1>
+            <p class="text-slate-400 mb-10">Orvosi csapat kezelése</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="doctors-grid"></div>
+        </div>
+
+        <div id="page-billing" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Számlázás</h1>
+            <p class="text-slate-400 mb-10">Számlák és pénzügyi áttekintés</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Havi bevétel</h3>
+                    <p class="text-3xl font-bold text-white">4.200.000 <span class="text-lg text-slate-500">Ft</span></p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Függő számlák</h3>
+                    <p class="text-3xl font-bold text-amber-400">3</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Kiegyenlített</h3>
+                    <p class="text-3xl font-bold text-emerald-400">45</p>
+                </div>
+            </div>
+            <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 p-8 text-center text-slate-500">
+                <span class="material-symbols-outlined text-5xl mb-4 block">receipt_long</span>
+                <p>A részletes számlázási modul hamarosan elérhető lesz.</p>
+            </div>
+        </div>
+
+        <div id="page-blog" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Blog</h1>
+            <p class="text-slate-400 mb-10">Blog bejegyzések kezelése</p>
+            <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 p-8 text-center text-slate-500">
+                <span class="material-symbols-outlined text-5xl mb-4 block">article</span>
+                <p>A blog kezelő modul hamarosan elérhető lesz.</p>
+            </div>
+        </div>
+
+        <div id="page-automation" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Automatizálások</h1>
+            <p class="text-slate-400 mb-10">AI-alapú automatizálások beállítása</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-white">Emlékeztető SMS</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-slate-400">Automatikus SMS küldés 24 órával az időpont előtt.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-white">Email visszaigazolás</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-slate-400">Automatikus email küldés foglalás után.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-white">Follow-up kérdőív</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-slate-400">Elégedettségi kérdőív küldése kezelés után 3 nappal.</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-white">No-show értesítés</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-700 peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                    <p class="text-sm text-slate-400">Automatikus értesítés, ha a páciens nem jelenik meg.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-analytics" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Analitika</h1>
+            <p class="text-slate-400 mb-10">Klinikai statisztikák és jelentések</p>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Összes páciens</h3>
+                    <p class="text-3xl font-bold text-white">8.241</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Havi időpontok</h3>
+                    <p class="text-3xl font-bold text-white">192</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Lemondások</h3>
+                    <p class="text-3xl font-bold text-rose-400">8</p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50">
+                    <h3 class="text-slate-400 text-sm mb-2">Elégedettség</h3>
+                    <p class="text-3xl font-bold text-emerald-400">4.9/5</p>
+                </div>
+            </div>
+            <!-- Simple chart placeholder -->
+            <div class="bg-slate-900/30 rounded-2xl border border-slate-800/50 p-8">
+                <h3 class="font-bold text-white mb-6">Havi foglalások (utolsó 6 hónap)</h3>
+                <div class="flex items-end gap-3 h-48">
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-500/80 rounded-t-lg" style="height: 60%"></div>
+                        <span class="text-xs text-slate-500">Nov</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-500/80 rounded-t-lg" style="height: 75%"></div>
+                        <span class="text-xs text-slate-500">Dec</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-500/80 rounded-t-lg" style="height: 50%"></div>
+                        <span class="text-xs text-slate-500">Jan</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-500/80 rounded-t-lg" style="height: 85%"></div>
+                        <span class="text-xs text-slate-500">Feb</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-500/80 rounded-t-lg" style="height: 90%"></div>
+                        <span class="text-xs text-slate-500">Már</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center gap-2">
+                        <div class="w-full bg-blue-400 rounded-t-lg" style="height: 100%"></div>
+                        <span class="text-xs text-white font-bold">Ápr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-settings" class="page-content hidden">
+            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Beállítások</h1>
+            <p class="text-slate-400 mb-10">Rendszer és fiók beállítások</p>
+            <div class="max-w-2xl space-y-6">
+                <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 space-y-4">
+                    <h3 class="font-bold text-white">Klinika adatok</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-slate-400 mb-1 block">Klinika neve</label>
+                            <input type="text" value="Mosoly Dental" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 mb-1 block">Telefonszám</label>
+                            <input type="text" value="+36 1 234 5678" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 mb-1 block">Email</label>
+                            <input type="email" value="info@mosolydental.hu" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 mb-1 block">Cím</label>
+                            <input type="text" value="1114 Budapest, Bartók Béla út 40." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                    </div>
+                    <button class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all">Mentés</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-slate-800/50">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-slate-500">© 2024 Mosoly Dental - Prémium Fogászati Klinika. Minden jog fenntartva.</p>
+                <div class="flex gap-6 text-xs text-slate-500">
+                    <a class="hover:text-blue-400" href="#">Adatvédelem</a>
+                    <a class="hover:text-blue-400" href="#">ÁSZF</a>
+                    <a class="hover:text-blue-400" href="#">Impresszum</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- New Appointment Modal -->
+<div id="appointment-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-slate-900 rounded-2xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl border border-slate-800">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-white">Új időpont felvétele</h2>
+            <button onclick="closeModal('appointment-modal')" class="text-slate-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <form id="new-appointment-form" class="space-y-4">
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Páciens neve *</label>
+                <input type="text" name="patient" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. Nagy Anna"/>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-xs text-slate-400 mb-1 block">Dátum *</label>
+                    <input type="date" name="date" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 mb-1 block">Időpont *</label>
+                    <input type="time" name="time" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500"/>
+                </div>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Orvos *</label>
+                <select name="doctor" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Válasszon...</option>
+                    <option>Dr. Szabó Anna</option>
+                    <option>Dr. Horváth Péter</option>
+                    <option>Dr. Kiss Eszter</option>
+                </select>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Kezelés *</label>
+                <select name="treatment" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Válasszon...</option>
+                    <option>Fogszabályozás</option>
+                    <option>Implantáció</option>
+                    <option>Fogfehérítés</option>
+                    <option>Fogkőeltávolítás</option>
+                    <option>Esztétikai fogászat</option>
+                    <option>Konzultáció</option>
+                </select>
+            </div>
+            <div class="flex gap-3 pt-4">
+                <button type="button" onclick="closeModal('appointment-modal')" class="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all text-sm">Mégsem</button>
+                <button type="submit" class="flex-1 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-slate-100 transition-all text-sm">Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- New Patient Modal -->
+<div id="patient-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-slate-900 rounded-2xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl border border-slate-800">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-white">Új páciens rögzítése</h2>
+            <button onclick="closeModal('patient-modal')" class="text-slate-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <form id="new-patient-form" class="space-y-4">
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Teljes név *</label>
+                <input type="text" name="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. Kovács Anna"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Email *</label>
+                <input type="email" name="email" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="anna@email.hu"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Telefonszám *</label>
+                <input type="tel" name="phone" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="+36 30 123 4567"/>
+            </div>
+            <div class="flex gap-3 pt-4">
+                <button type="button" onclick="closeModal('patient-modal')" class="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all text-sm">Mégsem</button>
+                <button type="submit" class="flex-1 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-slate-100 transition-all text-sm">Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast" class="fixed top-6 right-6 z-[300] hidden">
+    <div class="bg-emerald-500 text-white px-6 py-3 rounded-xl shadow-2xl font-semibold text-sm flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px]">check_circle</span>
+        <span id="toast-message">Sikeres mentés!</span>
+    </div>
+</div>
+
+<script>
+    // ========== DATA ==========
+    const appointments = [
+        { id: 1, patient: 'Nagy Tamás', initials: 'NT', color: 'blue', doctor: 'Dr. Szabó Anna', date: '2024-10-08', time: '09:00', treatment: 'Fogszabályozás', status: 'Completed' },
+        { id: 2, patient: 'Kiss Emese', initials: 'KE', color: 'purple', doctor: 'Dr. Horváth Péter', date: '2024-10-08', time: '10:30', treatment: 'Fogkőeltávolítás', status: 'Checked-in' },
+        { id: 3, patient: 'Molnár László', initials: 'ML', color: 'orange', doctor: 'Dr. Szabó Anna', date: '2024-10-08', time: '12:00', treatment: 'Implantáció', status: 'Confirmed' },
+        { id: 4, patient: 'Varga Kinga', initials: 'VK', color: 'pink', doctor: 'Dr. Kiss Eszter', date: '2024-10-08', time: '14:00', treatment: 'Fogfehérítés', status: 'Confirmed' },
+        { id: 5, patient: 'Tóth Gábor', initials: 'TG', color: 'green', doctor: 'Dr. Horváth Péter', date: '2024-10-09', time: '09:30', treatment: 'Konzultáció', status: 'Confirmed' },
+    ];
+
+    const patients = [
+        { id: 1, name: 'Nagy Tamás', email: 'nagy.tamas@email.hu', phone: '+36 30 111 2222', lastVisit: '2024-10-08' },
+        { id: 2, name: 'Kiss Emese', email: 'kiss.emese@email.hu', phone: '+36 20 333 4444', lastVisit: '2024-10-08' },
+        { id: 3, name: 'Molnár László', email: 'molnar.laszlo@email.hu', phone: '+36 70 555 6666', lastVisit: '2024-10-05' },
+        { id: 4, name: 'Varga Kinga', email: 'varga.kinga@email.hu', phone: '+36 30 777 8888', lastVisit: '2024-10-03' },
+        { id: 5, name: 'Tóth Gábor', email: 'toth.gabor@email.hu', phone: '+36 20 999 0000', lastVisit: '2024-09-28' },
+    ];
+
+    const treatments = [
+        { name: 'Fogszabályozás konzultáció', price: '15.000 Ft', icon: 'flare' },
+        { name: 'Implantáció', price: '250.000 Ft', icon: 'medical_services' },
+        { name: 'Fogfehérítés (Zoom4)', price: '35.000 Ft', icon: 'auto_awesome' },
+        { name: 'Fogkőeltávolítás', price: '12.000 Ft', icon: 'cleaning_services' },
+        { name: 'Esztétikai fogászat', price: '25.000 Ft', icon: 'brush' },
+        { name: 'Általános konzultáció', price: '8.000 Ft', icon: 'stethoscope' },
+    ];
+
+    const doctors = [
+        { name: 'Dr. Szabó Anna', specialty: 'Szájsebészet', slots: '9/12', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDE0dyxd8mzt1LyoFkXcISjEfNf2HG4ZQ-i_yczkPE33O5soukcrWA7FSn1d4soFZ3SUZ53voTGp6-n8Yl5i_PJriYjlw7lJpb4qrw40VA1AHTnkuHfA3Z7mWZVW-Rxmd8VQLbg4TO0_1t6uTdTw37c30_v1-9zxjOJ8u6dBoS21Fko-APbdfp2C5sZi_lKuhP-KMMJnM9hq5wjchr3ey5DmW_yAdJk2NPjjN63xh6V9LtPiN1BZuqHp-dhHkWbekcw9hAPaeMRDf4' },
+        { name: 'Dr. Horváth Péter', specialty: 'Fogpótlástan', slots: '5/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAAroMFqRpjcW4cj7Lebd9jue2EPLTWdkq8I1mViWAWnVm_Rk5EJl60b3YndglhyGDVGKgppMt9cqsm-pm9G4O-eulJi9ZFKETHCSmyu0KXGaXIHGeiOwEpyZxyA8WayCMfB6kiOOqTqEkdeHfBopEFOgKgyEyB13KofBvp8knp1g019BaHqn-Wz3pU3U3fyxZsmq0ebCbRuclWMeIAIM6-tK8lFIJNeQMtAX7Cmvbt4pfk4D5-hU7p3BMSRiJ54gTcXCpcKlyB7h4' },
+        { name: 'Dr. Kiss Eszter', specialty: 'Fogszabályozás', slots: '7/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBl-t0_F6babtuzvA_v6AujUAo1X__BP5StzrdIl2F7eXYHENqWhSNiNuQlal6pLa9tsEjQ2IlFnkbpa1CmiIA6iq0aDv6BtJrPNXmybbFVkv6WpEDlBUS5U4QL7TjszUNIpiQ2KPinerIVpHrWyr3_5eSYzKMZOM6rDA0MHp2h8NcjgdVAgn4lX8H-hO5nSNnucx5KIVL7gzzydBEkT5gg22flKMqXNxo-v7B1s4AtOjUdJPs-NSizPne8bx-6CJuiPych53vEd8s' },
+    ];
+
+    // ========== SIDEBAR / NAVIGATION ==========
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+
+    function showPage(page) {
+        // Hide all pages
+        document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+        // Show target
+        const target = document.getElementById('page-' + page);
+        if (target) target.classList.remove('hidden');
+
+        // Update nav active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('bg-slate-900', 'text-white', 'font-semibold', 'shadow-sm');
+            link.classList.add('text-slate-500');
+            const icon = link.querySelector('.material-symbols-outlined');
+            if (icon) icon.classList.remove('text-blue-400');
+        });
+        const activeLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+        if (activeLink) {
+            activeLink.classList.add('bg-slate-900', 'text-white', 'font-semibold', 'shadow-sm');
+            activeLink.classList.remove('text-slate-500');
+            const icon = activeLink.querySelector('.material-symbols-outlined');
+            if (icon) icon.classList.add('text-blue-400');
+        }
+
+        // Close mobile sidebar
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth < 1024) {
+            sidebar.classList.add('-translate-x-full');
+            document.getElementById('sidebar-overlay').classList.add('hidden');
+        }
+    }
+
+    // Nav link clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.dataset.page;
+            if (page) showPage(page);
+        });
+    });
+
+    // ========== STATUS HELPERS ==========
+    function statusBadge(status) {
+        const styles = {
+            'Completed': 'bg-emerald-400/10 text-emerald-400',
+            'Checked-in': 'bg-blue-400/10 text-blue-400',
+            'Confirmed': 'bg-slate-800 text-slate-400 border border-slate-700',
+            'Cancelled': 'bg-rose-400/10 text-rose-400',
+        };
+        const dotColors = {
+            'Completed': 'bg-emerald-400',
+            'Checked-in': 'bg-blue-400',
+            'Confirmed': 'bg-slate-400',
+            'Cancelled': 'bg-rose-400',
+        };
+        return `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${styles[status] || styles['Confirmed']}">
+            <span class="w-1.5 h-1.5 rounded-full ${dotColors[status] || dotColors['Confirmed']}"></span>
+            ${status}
+        </span>`;
+    }
+
+    function getInitials(name) {
+        return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+    }
+
+    const avatarColors = ['blue', 'purple', 'orange', 'pink', 'green', 'amber', 'cyan', 'red'];
+    function getColor(id) {
+        return avatarColors[id % avatarColors.length];
+    }
+
+    // ========== RENDER FUNCTIONS ==========
+    function renderDashboardAppointments() {
+        const tbody = document.getElementById('appointments-tbody');
+        const todayAppointments = appointments.filter(a => a.date === '2024-10-08');
+        tbody.innerHTML = todayAppointments.map(a => `
+            <tr class="hover:bg-slate-800/20 transition-colors">
+                <td class="px-4 md:px-8 py-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-${a.color}-900/30 flex items-center justify-center text-xs font-bold text-${a.color}-400">${a.initials}</div>
+                        <span class="text-sm font-medium text-white">${a.patient}</span>
+                    </div>
+                </td>
+                <td class="px-4 md:px-6 py-5 text-sm text-slate-400">${a.doctor}</td>
+                <td class="px-4 md:px-6 py-5 text-sm font-semibold text-white">${a.time}</td>
+                <td class="px-4 md:px-6 py-5 text-sm text-slate-400">${a.treatment}</td>
+                <td class="px-4 md:px-6 py-5">${statusBadge(a.status)}</td>
+                <td class="px-4 py-5">
+                    <button onclick="cycleStatus(${a.id})" class="text-slate-500 hover:text-white transition-colors" title="Státusz váltás">
+                        <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderAllAppointments() {
+        const tbody = document.getElementById('all-appointments-tbody');
+        tbody.innerHTML = appointments.map(a => `
+            <tr class="hover:bg-slate-800/20 transition-colors">
+                <td class="px-6 py-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-${a.color}-900/30 flex items-center justify-center text-xs font-bold text-${a.color}-400">${a.initials}</div>
+                        <span class="text-sm font-medium text-white">${a.patient}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-5 text-sm text-slate-400">${a.doctor}</td>
+                <td class="px-6 py-5 text-sm text-slate-400">${a.date}</td>
+                <td class="px-6 py-5 text-sm font-semibold text-white">${a.time}</td>
+                <td class="px-6 py-5 text-sm text-slate-400">${a.treatment}</td>
+                <td class="px-6 py-5">${statusBadge(a.status)}</td>
+                <td class="px-6 py-5">
+                    <div class="flex gap-2">
+                        <button onclick="cycleStatus(${a.id})" class="text-slate-500 hover:text-white transition-colors" title="Státusz váltás">
+                            <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                        </button>
+                        <button onclick="deleteAppointment(${a.id})" class="text-slate-500 hover:text-rose-400 transition-colors" title="Törlés">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderPatients() {
+        const tbody = document.getElementById('patients-tbody');
+        tbody.innerHTML = patients.map(p => `
+            <tr class="hover:bg-slate-800/20 transition-colors">
+                <td class="px-6 py-5">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-900/30 flex items-center justify-center text-xs font-bold text-blue-400">${getInitials(p.name)}</div>
+                        <span class="text-sm font-medium text-white">${p.name}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-5 text-sm text-slate-400">${p.email}</td>
+                <td class="px-6 py-5 text-sm text-slate-400">${p.phone}</td>
+                <td class="px-6 py-5 text-sm text-slate-400">${p.lastVisit}</td>
+                <td class="px-6 py-5">
+                    <button onclick="deletePatient(${p.id})" class="text-slate-500 hover:text-rose-400 transition-colors" title="Törlés">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderTreatments() {
+        const grid = document.getElementById('treatments-grid');
+        grid.innerHTML = treatments.map(t => `
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-blue-900/20 text-blue-400 flex items-center justify-center mb-4">
+                    <span class="material-symbols-outlined">${t.icon}</span>
+                </div>
+                <h3 class="font-bold text-white mb-2">${t.name}</h3>
+                <p class="text-lg font-bold text-blue-400">${t.price}</p>
+            </div>
+        `).join('');
+    }
+
+    function renderDoctors() {
+        const grid = document.getElementById('doctors-grid');
+        grid.innerHTML = doctors.map(d => `
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <img alt="${d.name}" class="w-14 h-14 rounded-full border-2 border-slate-800 object-cover" src="${d.img}"/>
+                    <div>
+                        <h3 class="font-bold text-white">${d.name}</h3>
+                        <p class="text-sm text-slate-400">${d.specialty}</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-slate-500">Mai slotok</span>
+                    <span class="text-xs bg-blue-900/30 text-blue-400 px-2 py-0.5 rounded font-bold">${d.slots}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ========== ACTIONS ==========
+    function cycleStatus(id) {
+        const statuses = ['Confirmed', 'Checked-in', 'Completed', 'Cancelled'];
+        const apt = appointments.find(a => a.id === id);
+        if (!apt) return;
+        const idx = statuses.indexOf(apt.status);
+        apt.status = statuses[(idx + 1) % statuses.length];
+        renderDashboardAppointments();
+        renderAllAppointments();
+        showToast('Státusz frissítve: ' + apt.status);
+    }
+
+    function deleteAppointment(id) {
+        const idx = appointments.findIndex(a => a.id === id);
+        if (idx > -1) {
+            appointments.splice(idx, 1);
+            renderDashboardAppointments();
+            renderAllAppointments();
+            showToast('Időpont törölve');
+        }
+    }
+
+    function deletePatient(id) {
+        const idx = patients.findIndex(p => p.id === id);
+        if (idx > -1) {
+            patients.splice(idx, 1);
+            renderPatients();
+            showToast('Páciens törölve');
+        }
+    }
+
+    // ========== MODALS ==========
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-message').textContent = message;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    // Modal triggers
+    document.getElementById('new-appointment-btn').addEventListener('click', () => openModal('appointment-modal'));
+    document.getElementById('open-new-appointment-modal').addEventListener('click', () => openModal('appointment-modal'));
+    document.getElementById('open-new-patient-modal').addEventListener('click', () => openModal('patient-modal'));
+
+    // Close modals on overlay click
+    ['appointment-modal', 'patient-modal'].forEach(id => {
+        document.getElementById(id).addEventListener('click', (e) => {
+            if (e.target === document.getElementById(id)) closeModal(id);
+        });
+    });
+
+    // Form submissions
+    document.getElementById('new-appointment-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const newId = appointments.length ? Math.max(...appointments.map(a => a.id)) + 1 : 1;
+        const name = fd.get('patient');
+        appointments.push({
+            id: newId,
+            patient: name,
+            initials: getInitials(name),
+            color: avatarColors[newId % avatarColors.length],
+            doctor: fd.get('doctor'),
+            date: fd.get('date'),
+            time: fd.get('time'),
+            treatment: fd.get('treatment'),
+            status: 'Confirmed'
+        });
+        renderDashboardAppointments();
+        renderAllAppointments();
+        closeModal('appointment-modal');
+        e.target.reset();
+        showToast('Új időpont rögzítve!');
+    });
+
+    document.getElementById('new-patient-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const newId = patients.length ? Math.max(...patients.map(p => p.id)) + 1 : 1;
+        patients.push({
+            id: newId,
+            name: fd.get('name'),
+            email: fd.get('email'),
+            phone: fd.get('phone'),
+            lastVisit: '—'
+        });
+        renderPatients();
+        closeModal('patient-modal');
+        e.target.reset();
+        showToast('Új páciens rögzítve!');
+    });
+
+    // ========== INIT ==========
+    renderDashboardAppointments();
+    renderAllAppointments();
+    renderPatients();
+    renderTreatments();
+    renderDoctors();
+</script>
+
+</body>
+</html>
