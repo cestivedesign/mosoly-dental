@@ -801,8 +801,21 @@
                 <input type="text" name="slots" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. 10/12"/>
             </div>
             <div>
-                <label class="text-xs text-slate-400 mb-1 block">Profilkép URL (opcionális)</label>
-                <input type="url" name="img" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="https://..."/>
+                <label class="text-xs text-slate-400 mb-1 block">Profilkép (opcionális)</label>
+                <input type="hidden" name="img" value=""/>
+                <div class="flex items-center gap-4">
+                    <div id="doctor-img-preview" class="w-16 h-16 rounded-full border-2 border-slate-700 bg-slate-800 flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <span class="material-symbols-outlined text-slate-600 text-2xl" id="doctor-img-placeholder">person</span>
+                    </div>
+                    <div class="flex-1">
+                        <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 text-sm hover:bg-slate-700 hover:text-white transition-all">
+                            <span class="material-symbols-outlined text-[18px]">upload</span>
+                            Kép kiválasztása
+                            <input type="file" id="doctor-img-file" accept="image/*" class="hidden"/>
+                        </label>
+                        <p class="text-[10px] text-slate-500 mt-1">JPG, PNG - max 2MB</p>
+                    </div>
+                </div>
             </div>
             <div class="flex gap-3 pt-4">
                 <button type="button" onclick="closeModal('doctor-modal')" class="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all text-sm">Mégsem</button>
@@ -1209,10 +1222,62 @@
     });
 
     // ========== DOCTORS CRUD ==========
+    let doctorImgDataUrl = '';
+
+    function resetDoctorImgPreview() {
+        const preview = document.getElementById('doctor-img-preview');
+        const placeholder = document.getElementById('doctor-img-placeholder');
+        preview.innerHTML = '';
+        preview.appendChild(placeholder);
+        placeholder.classList.remove('hidden');
+        doctorImgDataUrl = '';
+        const fileInput = document.getElementById('doctor-img-file');
+        if (fileInput) fileInput.value = '';
+    }
+
+    function setDoctorImgPreview(src) {
+        const preview = document.getElementById('doctor-img-preview');
+        const placeholder = document.getElementById('doctor-img-placeholder');
+        if (src) {
+            placeholder.classList.add('hidden');
+            const existing = preview.querySelector('img');
+            if (existing) existing.remove();
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Előnézet';
+            img.className = 'w-full h-full object-cover';
+            preview.appendChild(img);
+        } else {
+            placeholder.classList.remove('hidden');
+            const existing = preview.querySelector('img');
+            if (existing) existing.remove();
+        }
+    }
+
+    // File input handler - convert to base64 data URL
+    document.getElementById('doctor-img-file').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+            showToast('A fájl túl nagy! Maximum 2MB engedélyezett.');
+            e.target.value = '';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            doctorImgDataUrl = ev.target.result;
+            document.querySelector('#doctor-form input[name="img"]').value = doctorImgDataUrl;
+            setDoctorImgPreview(doctorImgDataUrl);
+        };
+        reader.readAsDataURL(file);
+    });
+
     function openDoctorModal(editIdx) {
         const form = document.getElementById('doctor-form');
         const title = document.getElementById('doctor-modal-title');
         form.reset();
+        resetDoctorImgPreview();
+
         if (editIdx !== undefined && editIdx >= 0) {
             const d = doctors[editIdx];
             title.textContent = 'Orvos szerkesztése';
@@ -1221,6 +1286,10 @@
             form.elements.specialty.value = d.specialty;
             form.elements.slots.value = d.slots;
             form.elements.img.value = d.img || '';
+            if (d.img) {
+                doctorImgDataUrl = d.img;
+                setDoctorImgPreview(d.img);
+            }
         } else {
             title.textContent = 'Új orvos hozzáadása';
             form.elements.editIndex.value = -1;
@@ -1242,7 +1311,8 @@
         e.preventDefault();
         const fd = new FormData(e.target);
         const editIdx = parseInt(fd.get('editIndex'));
-        const data = { name: fd.get('name'), specialty: fd.get('specialty'), slots: fd.get('slots'), img: fd.get('img') || '' };
+        const imgValue = doctorImgDataUrl || fd.get('img') || '';
+        const data = { name: fd.get('name'), specialty: fd.get('specialty'), slots: fd.get('slots'), img: imgValue };
 
         if (editIdx >= 0) {
             doctors[editIdx] = { ...doctors[editIdx], ...data };
@@ -1254,6 +1324,7 @@
         }
         renderDoctors();
         closeModal('doctor-modal');
+        doctorImgDataUrl = '';
         e.target.reset();
     });
 
