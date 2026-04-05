@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Időpontfoglalás - Mosoly Dental</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#d7e2ff",
+                        "primary-container": "#0056b3",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#03494f",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-container": "#656464",
+                        "on-tertiary-container": "#a1dae1",
+                        "on-background": "#191c1d",
+                        "outline": "#727784",
+                        "on-tertiary-fixed-variant": "#0d4e54",
+                        "on-primary-fixed-variant": "#004491",
+                        "primary": "#003f87",
+                        "on-primary-container": "#bbd0ff",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "background": "#f8f9fa",
+                        "surface-container": "#edeeef",
+                        "surface": "#f8f9fa",
+                        "on-surface": "#191c1d",
+                        "surface-tint": "#115cb9",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed-dim": "#acc7ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dadb",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#e4e2e1",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface-variant": "#424752",
+                        "on-primary-fixed": "#001a40",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c2c6d4",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#5f5e5e",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#002023",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#b3ecf3",
+                        "tertiary-fixed-dim": "#98d0d7",
+                        "inverse-primary": "#acc7ff",
+                        "tertiary-container": "#276167"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    fontFamily: {
+                        headline: ["Manrope"],
+                        body: ["Inter"],
+                        label: ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .cta-gradient {
+            background: linear-gradient(135deg, #003f87 0%, #0056b3 100%);
+        }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased selection:bg-primary-fixed">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 px-4 md:px-8 pt-4">
+        <nav class="max-w-screen-2xl mx-auto glass-nav bg-white/70 rounded-full shadow-sm py-4 px-8 flex justify-between items-center border border-white/20">
+            <a href="index.html" class="text-2xl font-bold tracking-tighter text-blue-900 font-headline">Mosoly Dental</a>
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden text-primary">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+            <nav class="hidden md:flex items-center space-x-8 font-headline text-sm font-medium tracking-wide">
+                <a class="text-slate-600 hover:text-teal-600 transition-colors duration-300" href="index.html#szolgaltatasok">Kezelések</a>
+                <a class="text-slate-600 hover:text-teal-600 transition-colors duration-300" href="index.html#rolunk">Rólunk</a>
+                <a class="text-slate-600 hover:text-teal-600 transition-colors duration-300" href="index.html#eredmenyek">Eredmények</a>
+                <a class="text-slate-600 hover:text-teal-600 transition-colors duration-300" href="index.html#kapcsolat">Kapcsolat</a>
+            </nav>
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="hidden lg:flex items-center text-blue-900 font-semibold text-sm">
+                    <span class="material-symbols-outlined mr-2">call</span>
+                    <a href="tel:+3612345678">+36 1 234 5678</a>
+                </div>
+                <a href="idopontfoglalas.html" class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-full font-headline font-semibold text-sm shadow-md hover:scale-95 transition-transform duration-200">
+                    Ingyenes konzultáció
+                </a>
+            </div>
+        </nav>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white rounded-2xl shadow-xl mt-2 p-6 mx-4 border border-outline-variant/10">
+            <div class="flex flex-col gap-4">
+                <a class="font-headline text-sm font-medium text-slate-600 py-2" href="index.html#szolgaltatasok">Kezelések</a>
+                <a class="font-headline text-sm font-medium text-slate-600 py-2" href="index.html#rolunk">Rólunk</a>
+                <a class="font-headline text-sm font-medium text-slate-600 py-2" href="index.html#eredmenyek">Eredmények</a>
+                <a class="font-headline text-sm font-medium text-slate-600 py-2" href="index.html#kapcsolat">Kapcsolat</a>
+                <a href="tel:+3612345678" class="flex items-center gap-2 text-primary text-sm font-bold py-2">
+                    <span class="material-symbols-outlined">call</span> +36 1 234 5678
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-4 min-h-screen">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Page Header -->
+            <div class="mb-12 text-center">
+                <span class="text-tertiary font-headline font-bold text-sm tracking-widest uppercase mb-2 block">Időpontfoglalás</span>
+                <h1 class="text-4xl md:text-5xl font-headline font-extrabold text-primary tracking-tight mb-4">Foglalja le kezelését</h1>
+                <p class="text-on-surface-variant max-w-xl mx-auto">Válassza ki a kívánt szolgáltatást és orvosát néhány egyszerű lépésben.</p>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="flex items-center justify-between mb-16 relative px-4 max-w-3xl mx-auto">
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-surface-variant -translate-y-1/2 z-0"></div>
+                <div id="progress-bar" class="absolute top-1/2 left-0 h-1 bg-tertiary -translate-y-1/2 z-0 transition-all duration-500" style="width: 0%"></div>
+                <div class="relative z-10 flex flex-col items-center step-indicator" data-step="1">
+                    <div class="step-circle w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-bold text-sm shadow-lg cursor-pointer">1</div>
+                    <span class="absolute -bottom-8 whitespace-nowrap text-xs font-bold text-tertiary font-headline">Szolgáltatás</span>
+                </div>
+                <div class="relative z-10 flex flex-col items-center step-indicator" data-step="2">
+                    <div class="step-circle w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-sm cursor-pointer">2</div>
+                    <span class="absolute -bottom-8 whitespace-nowrap text-xs font-medium text-on-surface-variant font-headline">Orvos</span>
+                </div>
+                <div class="relative z-10 flex flex-col items-center step-indicator" data-step="3">
+                    <div class="step-circle w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-sm cursor-pointer">3</div>
+                    <span class="absolute -bottom-8 whitespace-nowrap text-xs font-medium text-on-surface-variant font-headline">Időpont</span>
+                </div>
+                <div class="relative z-10 flex flex-col items-center step-indicator" data-step="4">
+                    <div class="step-circle w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-sm cursor-pointer">4</div>
+                    <span class="absolute -bottom-8 whitespace-nowrap text-xs font-medium text-on-surface-variant font-headline">Adatok</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- Main Content Area -->
+                <div class="lg:col-span-8 space-y-8">
+
+                    <!-- Step 1: Service Selection -->
+                    <section id="step-1" class="step-content bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border-b-2 border-primary/10">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">medical_services</span>
+                            <h2 class="text-2xl font-headline font-bold text-primary">Válasszon szolgáltatást</h2>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button class="service-btn p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all" data-service="Fogszabályozás konzultáció" data-price="15.000 Ft">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-primary">flare</span>
+                                    <h3 class="font-bold text-primary">Fogszabályozás konzultáció</h3>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Személyre szabott terv készítése</p>
+                                <p class="text-sm font-bold text-tertiary mt-2">15.000 Ft</p>
+                            </button>
+                            <button class="service-btn p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all" data-service="Implantológia konzultáció" data-price="20.000 Ft">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-primary">medical_services</span>
+                                    <h3 class="font-bold text-primary">Implantológia konzultáció</h3>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Vizsgálat és kezelési terv</p>
+                                <p class="text-sm font-bold text-tertiary mt-2">20.000 Ft</p>
+                            </button>
+                            <button class="service-btn p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all" data-service="Fogfehérítés" data-price="35.000 Ft">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                                    <h3 class="font-bold text-primary">Fogfehérítés</h3>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Zoom4 technológiával</p>
+                                <p class="text-sm font-bold text-tertiary mt-2">35.000 Ft</p>
+                            </button>
+                            <button class="service-btn p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all" data-service="Esztétikai fogászat" data-price="25.000 Ft">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-primary">brush</span>
+                                    <h3 class="font-bold text-primary">Esztétikai fogászat</h3>
+                                </div>
+                                <p class="text-sm text-on-surface-variant">Héjak, koronák, betétek</p>
+                                <p class="text-sm font-bold text-tertiary mt-2">25.000 Ft</p>
+                            </button>
+                        </div>
+                        <div class="flex justify-end mt-6">
+                            <button id="next-to-2" class="cta-gradient text-on-primary px-8 py-3 rounded-full font-bold opacity-50 cursor-not-allowed transition-all" disabled>
+                                Tovább <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Step 2: Doctor Selection -->
+                    <section id="step-2" class="step-content hidden bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border-b-2 border-primary/10">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">person</span>
+                            <h2 class="text-2xl font-headline font-bold text-primary">Válasszon orvost</h2>
+                        </div>
+                        <div class="space-y-4">
+                            <button class="doctor-btn w-full p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all flex items-center gap-4 md:gap-6" data-doctor="Dr. Kiss Eszter">
+                                <img class="w-16 h-16 rounded-full object-cover border-2 border-primary-fixed flex-shrink-0" alt="Dr. Kiss Eszter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl-t0_F6babtuzvA_v6AujUAo1X__BP5StzrdIl2F7eXYHENqWhSNiNuQlal6pLa9tsEjQ2IlFnkbpa1CmiIA6iq0aDv6BtJrPNXmybbFVkv6WpEDlBUS5U4QL7TjszUNIpiQ2KPinerIVpHrWyr3_5eSYzKMZOM6rDA0MHp2h8NcjgdVAgn4lX8H-hO5nSNnucx5KIVL7gzzydBEkT5gg22flKMqXNxo-v7B1s4AtOjUdJPs-NSizPne8bx-6CJuiPych53vEd8s"/>
+                                <div>
+                                    <h3 class="font-bold text-primary text-lg">Dr. Kiss Eszter</h3>
+                                    <p class="text-sm text-on-surface-variant">Fogszabályozás, Esztétikai fogászat</p>
+                                    <p class="text-xs text-tertiary font-semibold mt-1">12 év tapasztalat</p>
+                                </div>
+                            </button>
+                            <button class="doctor-btn w-full p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all flex items-center gap-4 md:gap-6" data-doctor="Dr. Nagy Péter">
+                                <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold text-xl flex-shrink-0">NP</div>
+                                <div>
+                                    <h3 class="font-bold text-primary text-lg">Dr. Nagy Péter</h3>
+                                    <p class="text-sm text-on-surface-variant">Implantológia, Szájsebészet</p>
+                                    <p class="text-xs text-tertiary font-semibold mt-1">18 év tapasztalat</p>
+                                </div>
+                            </button>
+                            <button class="doctor-btn w-full p-4 md:p-6 rounded-xl border-2 border-outline-variant/30 hover:border-primary text-left transition-all flex items-center gap-4 md:gap-6" data-doctor="Dr. Szabó Anna">
+                                <div class="w-16 h-16 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary font-bold text-xl flex-shrink-0">SzA</div>
+                                <div>
+                                    <h3 class="font-bold text-primary text-lg">Dr. Szabó Anna</h3>
+                                    <p class="text-sm text-on-surface-variant">Fogfehérítés, Általános fogászat</p>
+                                    <p class="text-xs text-tertiary font-semibold mt-1">8 év tapasztalat</p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="flex justify-between mt-6">
+                            <button class="back-btn text-primary px-6 py-3 rounded-full font-bold border-2 border-primary/20 hover:border-primary transition-all" data-target="1">
+                                <span class="material-symbols-outlined text-sm mr-1">arrow_back</span> Vissza
+                            </button>
+                            <button id="next-to-3" class="cta-gradient text-on-primary px-8 py-3 rounded-full font-bold opacity-50 cursor-not-allowed transition-all" disabled>
+                                Tovább <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Step 3: Date & Time -->
+                    <section id="step-3" class="step-content hidden bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm border-b-2 border-primary/10">
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">calendar_month</span>
+                            <h2 class="text-2xl font-headline font-bold text-primary">Válasszon időpontot</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <label class="block text-sm font-bold text-on-surface-variant px-1">Naptár</label>
+                                <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/30">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <button id="prev-month" class="p-1 hover:bg-surface-variant rounded-full"><span class="material-symbols-outlined">chevron_left</span></button>
+                                        <span id="calendar-title" class="font-headline font-bold"></span>
+                                        <button id="next-month" class="p-1 hover:bg-surface-variant rounded-full"><span class="material-symbols-outlined">chevron_right</span></button>
+                                    </div>
+                                    <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-on-surface-variant font-bold">
+                                        <div>H</div><div>K</div><div>Sze</div><div>Cs</div><div>P</div><div class="text-error">Szo</div><div class="text-error">V</div>
+                                    </div>
+                                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center text-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="block text-sm font-bold text-on-surface-variant px-1">Szabad időpontok</label>
+                                <div id="time-slots" class="grid grid-cols-3 gap-2">
+                                    <p class="col-span-3 text-sm text-on-surface-variant text-center py-8">Válasszon egy napot a naptárból</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-6">
+                            <button class="back-btn text-primary px-6 py-3 rounded-full font-bold border-2 border-primary/20 hover:border-primary transition-all" data-target="2">
+                                <span class="material-symbols-outlined text-sm mr-1">arrow_back</span> Vissza
+                            </button>
+                            <button id="next-to-4" class="cta-gradient text-on-primary px-8 py-3 rounded-full font-bold opacity-50 cursor-not-allowed transition-all" disabled>
+                                Tovább <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Step 4: Personal Data -->
+                    <section id="step-4" class="step-content hidden bg-surface-container-low p-6 md:p-8 rounded-xl">
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="material-symbols-outlined text-tertiary text-3xl">person_edit</span>
+                            <h2 class="text-2xl font-headline font-bold text-primary">Személyes adatok</h2>
+                        </div>
+                        <form id="booking-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-on-surface-variant ml-1" for="fullname">Teljes név *</label>
+                                <input id="fullname" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Kovács János" type="text" required/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-on-surface-variant ml-1" for="email">Email cím *</label>
+                                <input id="email" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="janos@email.hu" type="email" required/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-on-surface-variant ml-1" for="phone">Telefonszám *</label>
+                                <input id="phone" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="+36 30 123 4567" type="tel" required/>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-semibold text-on-surface-variant ml-1" for="taj">TAJ szám</label>
+                                <input id="taj" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="123 456 789" type="text"/>
+                            </div>
+                            <div class="md:col-span-2 space-y-2">
+                                <label class="text-sm font-semibold text-on-surface-variant ml-1" for="notes">Megjegyzés</label>
+                                <textarea id="notes" class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Milyen panasza van?..." rows="3"></textarea>
+                            </div>
+                            <div class="md:col-span-2 flex items-center gap-3 py-2">
+                                <input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" id="first-time" type="checkbox"/>
+                                <label class="text-sm font-medium text-on-surface" for="first-time">Most járok először a klinikán</label>
+                            </div>
+                        </form>
+                        <div class="flex justify-between mt-6">
+                            <button class="back-btn text-primary px-6 py-3 rounded-full font-bold border-2 border-primary/20 hover:border-primary transition-all" data-target="3">
+                                <span class="material-symbols-outlined text-sm mr-1">arrow_back</span> Vissza
+                            </button>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Sidebar Summary -->
+                <aside class="lg:col-span-4 sticky top-32 space-y-6">
+                    <div class="bg-primary text-on-primary p-6 md:p-8 rounded-xl shadow-xl overflow-hidden relative">
+                        <div class="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-xl font-headline font-bold mb-6">Foglalás összesítése</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined mt-1 text-tertiary-fixed">medical_services</span>
+                                <div>
+                                    <p class="text-primary-fixed text-xs font-bold uppercase tracking-wider">Szolgáltatás</p>
+                                    <p id="summary-service" class="font-headline font-medium text-lg">—</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined mt-1 text-tertiary-fixed">person</span>
+                                <div>
+                                    <p class="text-primary-fixed text-xs font-bold uppercase tracking-wider">Orvos</p>
+                                    <p id="summary-doctor" class="font-headline font-medium">—</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined mt-1 text-tertiary-fixed">event</span>
+                                <div>
+                                    <p class="text-primary-fixed text-xs font-bold uppercase tracking-wider">Időpont</p>
+                                    <p id="summary-datetime" class="font-headline font-medium text-lg">—</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/10 flex justify-between items-end">
+                            <div>
+                                <p class="text-xs text-primary-fixed font-bold uppercase">Becsült ár</p>
+                                <p id="summary-price" class="text-3xl font-headline font-extrabold tracking-tight">— Ft</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="confirm-booking" class="w-full bg-tertiary text-on-tertiary py-4 md:py-5 rounded-full font-headline font-bold text-lg shadow-lg hover:translate-y-[-2px] transition-all active:scale-95 opacity-50 cursor-not-allowed" disabled>
+                        Foglalás megerősítése
+                    </button>
+                    <p class="text-center text-xs text-on-surface-variant px-4">
+                        A "Foglalás megerősítése" gombra kattintva elfogadja az <a class="underline" href="#">Adatvédelmi nyilatkozatot</a> és az <a class="underline" href="#">ÁSZF</a>-et.
+                    </p>
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 w-full py-12 px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <div class="text-lg font-bold text-blue-900 font-headline">Mosoly Dental</div>
+                <p class="text-xs text-slate-500">Prémium fogászati ellátás modern környezetben, szakértő kezek között.</p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-headline font-bold text-sm text-primary">Kapcsolat</h4>
+                <ul class="text-xs text-slate-500 space-y-2">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">place</span> 1111 Budapest, Fog utca 12.</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span> info@mosolydental.hu</li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-headline font-bold text-sm text-primary">Navigáció</h4>
+                <ul class="text-xs text-slate-500 space-y-2">
+                    <li><a class="hover:text-blue-700 transition-colors" href="index.html#szolgaltatasok">Kezeléseink</a></li>
+                    <li><a class="hover:text-blue-700 transition-colors" href="index.html">Főoldal</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4">
+                <h4 class="font-headline font-bold text-sm text-primary">Hírlevél</h4>
+                <form onsubmit="event.preventDefault(); alert('Feliratkozás sikeres!');" class="flex">
+                    <input class="bg-white border-none rounded-l-lg text-xs px-4 py-2 w-full focus:ring-1 focus:ring-primary" placeholder="Email címe" type="email" required/>
+                    <button type="submit" class="bg-primary text-white rounded-r-lg px-4 py-2 hover:opacity-80 transition-opacity"><span class="material-symbols-outlined">send</span></button>
+                </form>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-slate-500">© 2024 Mosoly Dental - Prémium Fogászati Klinika. Minden jog fenntartva.</p>
+            <div class="flex gap-6">
+                <a class="text-xs text-slate-500 hover:text-blue-700" href="#">Adatvédelem</a>
+                <a class="text-xs text-slate-500 hover:text-blue-700" href="#">ÁSZF</a>
+                <a class="text-xs text-slate-500 hover:text-blue-700" href="#">Impresszum</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl p-8 md:p-12 max-w-md mx-4 text-center shadow-2xl">
+            <div class="w-20 h-20 bg-tertiary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-5xl text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <h2 class="text-2xl font-headline font-extrabold text-primary mb-4">Sikeres foglalás!</h2>
+            <p class="text-on-surface-variant mb-8">Visszaigazoló emailt küldtünk az Ön által megadott címre. Kérdés esetén hívjon minket!</p>
+            <a href="index.html" class="cta-gradient text-on-primary px-8 py-4 rounded-full font-bold inline-block">Vissza a főoldalra</a>
+        </div>
+    </div>
+
+    <script>
+        // State
+        const state = {
+            currentStep: 1,
+            service: null,
+            servicePrice: null,
+            doctor: null,
+            selectedDate: null,
+            selectedTime: null,
+            calendarYear: new Date().getFullYear(),
+            calendarMonth: new Date().getMonth()
+        };
+
+        const hunMonths = ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'];
+
+        // Mobile menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        // Step navigation
+        function goToStep(step) {
+            if (step < 1 || step > 4) return;
+            // Validate prerequisites
+            if (step >= 2 && !state.service) return;
+            if (step >= 3 && !state.doctor) return;
+            if (step >= 4 && (!state.selectedDate || !state.selectedTime)) return;
+
+            state.currentStep = step;
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('step-' + step).classList.remove('hidden');
+            updateStepIndicators();
+        }
+
+        function updateStepIndicators() {
+            const progressPercents = { 1: 0, 2: 33, 3: 66, 4: 100 };
+            document.getElementById('progress-bar').style.width = progressPercents[state.currentStep] + '%';
+
+            document.querySelectorAll('.step-indicator').forEach(el => {
+                const s = parseInt(el.dataset.step);
+                const circle = el.querySelector('.step-circle');
+                const label = el.querySelector('span:last-child');
+                if (s <= state.currentStep) {
+                    circle.className = 'step-circle w-10 h-10 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-bold text-sm shadow-lg cursor-pointer';
+                    label.className = 'absolute -bottom-8 whitespace-nowrap text-xs font-bold text-tertiary font-headline';
+                } else {
+                    circle.className = 'step-circle w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-sm cursor-pointer';
+                    label.className = 'absolute -bottom-8 whitespace-nowrap text-xs font-medium text-on-surface-variant font-headline';
+                }
+            });
+        }
+
+        // Step 1: Services
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('border-primary', 'bg-primary-fixed/30'));
+                btn.classList.add('border-primary', 'bg-primary-fixed/30');
+                state.service = btn.dataset.service;
+                state.servicePrice = btn.dataset.price;
+                document.getElementById('summary-service').textContent = state.service;
+                document.getElementById('summary-price').textContent = state.servicePrice;
+                const nextBtn = document.getElementById('next-to-2');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+        });
+
+        document.getElementById('next-to-2').addEventListener('click', () => goToStep(2));
+
+        // Step 2: Doctors
+        document.querySelectorAll('.doctor-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.doctor-btn').forEach(b => b.classList.remove('border-primary', 'bg-primary-fixed/30'));
+                btn.classList.add('border-primary', 'bg-primary-fixed/30');
+                state.doctor = btn.dataset.doctor;
+                document.getElementById('summary-doctor').textContent = state.doctor;
+                const nextBtn = document.getElementById('next-to-3');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+        });
+
+        document.getElementById('next-to-3').addEventListener('click', () => {
+            goToStep(3);
+            renderCalendar();
+        });
+
+        // Step 3: Calendar
+        function renderCalendar() {
+            const year = state.calendarYear;
+            const month = state.calendarMonth;
+            document.getElementById('calendar-title').textContent = year + '. ' + hunMonths[month];
+
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+
+            const firstDay = new Date(year, month, 1);
+            let startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Monday = 0
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            // Previous month padding
+            const prevMonthDays = new Date(year, month, 0).getDate();
+            for (let i = startDay - 1; i >= 0; i--) {
+                const div = document.createElement('div');
+                div.className = 'p-2 text-outline';
+                div.textContent = prevMonthDays - i;
+                grid.appendChild(div);
+            }
+
+            // Current month days
+            for (let d = 1; d <= daysInMonth; d++) {
+                const div = document.createElement('div');
+                const date = new Date(year, month, d);
+                const dayOfWeek = date.getDay();
+                const isPast = date < today;
+                const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+                const isSelected = state.selectedDate && state.selectedDate.getTime() === date.getTime();
+
+                if (isPast || isWeekend) {
+                    div.className = 'p-2 text-outline cursor-not-allowed';
+                } else if (isSelected) {
+                    div.className = 'p-2 bg-primary text-on-primary rounded-lg cursor-pointer font-bold shadow-md';
+                } else {
+                    div.className = 'p-2 hover:bg-primary-fixed rounded-lg cursor-pointer';
+                    div.addEventListener('click', () => {
+                        state.selectedDate = new Date(year, month, d);
+                        renderCalendar();
+                        renderTimeSlots();
+                    });
+                }
+                div.textContent = d;
+                grid.appendChild(div);
+            }
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById('time-slots');
+            const slots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'];
+            // Randomly disable some slots for realism
+            const disabled = new Set([slots[Math.floor(Math.random()*slots.length)], slots[Math.floor(Math.random()*slots.length)]]);
+
+            container.innerHTML = '';
+            slots.forEach(time => {
+                const btn = document.createElement('button');
+                const isDisabled = disabled.has(time);
+                const isSelected = state.selectedTime === time;
+
+                if (isDisabled) {
+                    btn.className = 'py-3 px-2 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant/30 opacity-50 cursor-not-allowed';
+                    btn.disabled = true;
+                } else if (isSelected) {
+                    btn.className = 'py-3 px-2 text-xs font-semibold rounded-lg bg-primary text-on-primary shadow-md';
+                } else {
+                    btn.className = 'py-3 px-2 text-xs font-semibold rounded-lg bg-surface-container-low border border-outline-variant/30 hover:border-primary hover:text-primary transition-all';
+                    btn.addEventListener('click', () => {
+                        state.selectedTime = time;
+                        renderTimeSlots();
+                        updateDateTimeSummary();
+                        const nextBtn = document.getElementById('next-to-4');
+                        nextBtn.disabled = false;
+                        nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    });
+                }
+                btn.textContent = time;
+                container.appendChild(btn);
+            });
+        }
+
+        function updateDateTimeSummary() {
+            if (state.selectedDate && state.selectedTime) {
+                const d = state.selectedDate;
+                const dateStr = d.getFullYear() + '. ' + hunMonths[d.getMonth()].toLowerCase() + ' ' + d.getDate() + '. • ' + state.selectedTime;
+                document.getElementById('summary-datetime').textContent = dateStr;
+            }
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            state.calendarMonth--;
+            if (state.calendarMonth < 0) { state.calendarMonth = 11; state.calendarYear--; }
+            renderCalendar();
+        });
+        document.getElementById('next-month').addEventListener('click', () => {
+            state.calendarMonth++;
+            if (state.calendarMonth > 11) { state.calendarMonth = 0; state.calendarYear++; }
+            renderCalendar();
+        });
+
+        document.getElementById('next-to-4').addEventListener('click', () => goToStep(4));
+
+        // Back buttons
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('click', () => goToStep(parseInt(btn.dataset.target)));
+        });
+
+        // Step indicators clickable
+        document.querySelectorAll('.step-indicator').forEach(el => {
+            el.addEventListener('click', () => {
+                const targetStep = parseInt(el.dataset.step);
+                if (targetStep <= state.currentStep) {
+                    goToStep(targetStep);
+                }
+            });
+        });
+
+        // Confirm booking
+        const confirmBtn = document.getElementById('confirm-booking');
+        const form = document.getElementById('booking-form');
+
+        // Enable confirm when on step 4 and form is valid
+        function checkConfirmable() {
+            const fullname = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (state.currentStep === 4 && fullname && email && phone && state.service && state.doctor && state.selectedDate && state.selectedTime) {
+                confirmBtn.disabled = false;
+                confirmBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                confirmBtn.disabled = true;
+                confirmBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        ['fullname', 'email', 'phone'].forEach(id => {
+            document.getElementById(id).addEventListener('input', checkConfirmable);
+        });
+
+        // Watch for step changes to update confirm button
+        const observer = new MutationObserver(checkConfirmable);
+        document.querySelectorAll('.step-content').forEach(el => observer.observe(el, { attributes: true, attributeFilter: ['class'] }));
+
+        confirmBtn.addEventListener('click', () => {
+            if (confirmBtn.disabled) return;
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('success-modal').classList.add('flex');
+        });
+
+        // Initialize
+        updateStepIndicators();
+    </script>
+
+</body>
+</html>
