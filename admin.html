@@ -456,14 +456,30 @@
 
         <!-- ===================== GENERIC SUB-PAGES ===================== -->
         <div id="page-treatments" class="page-content hidden">
-            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Kezelések</h1>
-            <p class="text-slate-400 mb-10">Kezelési típusok és árak kezelése</p>
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Kezelések</h1>
+                    <p class="text-slate-400">Kezelési típusok és árak kezelése</p>
+                </div>
+                <button onclick="openTreatmentModal()" class="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-950 rounded-xl hover:bg-slate-100 transition-all font-bold shadow-xl shadow-white/5 text-sm">
+                    <span class="material-symbols-outlined text-[20px]">add_circle</span>
+                    Új kezelés hozzáadása
+                </button>
+            </header>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="treatments-grid"></div>
         </div>
 
         <div id="page-doctors" class="page-content hidden">
-            <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Orvosok</h1>
-            <p class="text-slate-400 mb-10">Orvosi csapat kezelése</p>
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight mb-2">Orvosok</h1>
+                    <p class="text-slate-400">Orvosi csapat kezelése</p>
+                </div>
+                <button onclick="openDoctorModal()" class="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-950 rounded-xl hover:bg-slate-100 transition-all font-bold shadow-xl shadow-white/5 text-sm">
+                    <span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Új orvos hozzáadása
+                </button>
+            </header>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="doctors-grid"></div>
         </div>
 
@@ -723,6 +739,79 @@
     </div>
 </div>
 
+<!-- Treatment Modal -->
+<div id="treatment-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-slate-900 rounded-2xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl border border-slate-800">
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="treatment-modal-title" class="text-xl font-bold text-white">Új kezelés hozzáadása</h2>
+            <button onclick="closeModal('treatment-modal')" class="text-slate-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <form id="treatment-form" class="space-y-4">
+            <input type="hidden" name="editIndex" value="-1"/>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Kezelés neve *</label>
+                <input type="text" name="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. Fogfehérítés"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Ár *</label>
+                <input type="text" name="price" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. 35.000 Ft"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Ikon</label>
+                <select name="icon" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="medical_services">medical_services</option>
+                    <option value="flare">flare</option>
+                    <option value="auto_awesome">auto_awesome</option>
+                    <option value="brush">brush</option>
+                    <option value="cleaning_services">cleaning_services</option>
+                    <option value="stethoscope">stethoscope</option>
+                    <option value="healing">healing</option>
+                    <option value="health_and_safety">health_and_safety</option>
+                    <option value="dentistry">dentistry</option>
+                    <option value="vaccines">vaccines</option>
+                </select>
+            </div>
+            <div class="flex gap-3 pt-4">
+                <button type="button" onclick="closeModal('treatment-modal')" class="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all text-sm">Mégsem</button>
+                <button type="submit" class="flex-1 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-slate-100 transition-all text-sm">Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Doctor Modal -->
+<div id="doctor-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-slate-900 rounded-2xl p-6 md:p-8 max-w-lg w-full mx-4 shadow-2xl border border-slate-800">
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="doctor-modal-title" class="text-xl font-bold text-white">Új orvos hozzáadása</h2>
+            <button onclick="closeModal('doctor-modal')" class="text-slate-400 hover:text-white"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <form id="doctor-form" class="space-y-4">
+            <input type="hidden" name="editIndex" value="-1"/>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Orvos neve *</label>
+                <input type="text" name="name" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. Dr. Kiss Eszter"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Szakterület *</label>
+                <input type="text" name="specialty" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. Fogszabályozás"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Napi slotok *</label>
+                <input type="text" name="slots" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Pl. 10/12"/>
+            </div>
+            <div>
+                <label class="text-xs text-slate-400 mb-1 block">Profilkép URL (opcionális)</label>
+                <input type="url" name="img" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white text-sm focus:ring-blue-500 focus:border-blue-500" placeholder="https://..."/>
+            </div>
+            <div class="flex gap-3 pt-4">
+                <button type="button" onclick="closeModal('doctor-modal')" class="flex-1 py-3 rounded-xl border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all text-sm">Mégsem</button>
+                <button type="submit" class="flex-1 py-3 rounded-xl bg-white text-slate-950 font-bold hover:bg-slate-100 transition-all text-sm">Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Toast notification -->
 <div id="toast" class="fixed top-6 right-6 z-[300] hidden">
     <div class="bg-emerald-500 text-white px-6 py-3 rounded-xl shadow-2xl font-semibold text-sm flex items-center gap-2">
@@ -750,18 +839,18 @@
     ];
 
     const treatments = [
-        { name: 'Fogszabályozás konzultáció', price: '15.000 Ft', icon: 'flare' },
-        { name: 'Implantáció', price: '250.000 Ft', icon: 'medical_services' },
-        { name: 'Fogfehérítés (Zoom4)', price: '35.000 Ft', icon: 'auto_awesome' },
-        { name: 'Fogkőeltávolítás', price: '12.000 Ft', icon: 'cleaning_services' },
-        { name: 'Esztétikai fogászat', price: '25.000 Ft', icon: 'brush' },
-        { name: 'Általános konzultáció', price: '8.000 Ft', icon: 'stethoscope' },
+        { id: 1, name: 'Fogszabályozás konzultáció', price: '15.000 Ft', icon: 'flare' },
+        { id: 2, name: 'Implantáció', price: '250.000 Ft', icon: 'medical_services' },
+        { id: 3, name: 'Fogfehérítés (Zoom4)', price: '35.000 Ft', icon: 'auto_awesome' },
+        { id: 4, name: 'Fogkőeltávolítás', price: '12.000 Ft', icon: 'cleaning_services' },
+        { id: 5, name: 'Esztétikai fogászat', price: '25.000 Ft', icon: 'brush' },
+        { id: 6, name: 'Általános konzultáció', price: '8.000 Ft', icon: 'stethoscope' },
     ];
 
     const doctors = [
-        { name: 'Dr. Szabó Anna', specialty: 'Szájsebészet', slots: '9/12', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDE0dyxd8mzt1LyoFkXcISjEfNf2HG4ZQ-i_yczkPE33O5soukcrWA7FSn1d4soFZ3SUZ53voTGp6-n8Yl5i_PJriYjlw7lJpb4qrw40VA1AHTnkuHfA3Z7mWZVW-Rxmd8VQLbg4TO0_1t6uTdTw37c30_v1-9zxjOJ8u6dBoS21Fko-APbdfp2C5sZi_lKuhP-KMMJnM9hq5wjchr3ey5DmW_yAdJk2NPjjN63xh6V9LtPiN1BZuqHp-dhHkWbekcw9hAPaeMRDf4' },
-        { name: 'Dr. Horváth Péter', specialty: 'Fogpótlástan', slots: '5/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAAroMFqRpjcW4cj7Lebd9jue2EPLTWdkq8I1mViWAWnVm_Rk5EJl60b3YndglhyGDVGKgppMt9cqsm-pm9G4O-eulJi9ZFKETHCSmyu0KXGaXIHGeiOwEpyZxyA8WayCMfB6kiOOqTqEkdeHfBopEFOgKgyEyB13KofBvp8knp1g019BaHqn-Wz3pU3U3fyxZsmq0ebCbRuclWMeIAIM6-tK8lFIJNeQMtAX7Cmvbt4pfk4D5-hU7p3BMSRiJ54gTcXCpcKlyB7h4' },
-        { name: 'Dr. Kiss Eszter', specialty: 'Fogszabályozás', slots: '7/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBl-t0_F6babtuzvA_v6AujUAo1X__BP5StzrdIl2F7eXYHENqWhSNiNuQlal6pLa9tsEjQ2IlFnkbpa1CmiIA6iq0aDv6BtJrPNXmybbFVkv6WpEDlBUS5U4QL7TjszUNIpiQ2KPinerIVpHrWyr3_5eSYzKMZOM6rDA0MHp2h8NcjgdVAgn4lX8H-hO5nSNnucx5KIVL7gzzydBEkT5gg22flKMqXNxo-v7B1s4AtOjUdJPs-NSizPne8bx-6CJuiPych53vEd8s' },
+        { id: 1, name: 'Dr. Szabó Anna', specialty: 'Szájsebészet', slots: '9/12', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDE0dyxd8mzt1LyoFkXcISjEfNf2HG4ZQ-i_yczkPE33O5soukcrWA7FSn1d4soFZ3SUZ53voTGp6-n8Yl5i_PJriYjlw7lJpb4qrw40VA1AHTnkuHfA3Z7mWZVW-Rxmd8VQLbg4TO0_1t6uTdTw37c30_v1-9zxjOJ8u6dBoS21Fko-APbdfp2C5sZi_lKuhP-KMMJnM9hq5wjchr3ey5DmW_yAdJk2NPjjN63xh6V9LtPiN1BZuqHp-dhHkWbekcw9hAPaeMRDf4' },
+        { id: 2, name: 'Dr. Horváth Péter', specialty: 'Fogpótlástan', slots: '5/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAAroMFqRpjcW4cj7Lebd9jue2EPLTWdkq8I1mViWAWnVm_Rk5EJl60b3YndglhyGDVGKgppMt9cqsm-pm9G4O-eulJi9ZFKETHCSmyu0KXGaXIHGeiOwEpyZxyA8WayCMfB6kiOOqTqEkdeHfBopEFOgKgyEyB13KofBvp8knp1g019BaHqn-Wz3pU3U3fyxZsmq0ebCbRuclWMeIAIM6-tK8lFIJNeQMtAX7Cmvbt4pfk4D5-hU7p3BMSRiJ54gTcXCpcKlyB7h4' },
+        { id: 3, name: 'Dr. Kiss Eszter', specialty: 'Fogszabályozás', slots: '7/10', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBl-t0_F6babtuzvA_v6AujUAo1X__BP5StzrdIl2F7eXYHENqWhSNiNuQlal6pLa9tsEjQ2IlFnkbpa1CmiIA6iq0aDv6BtJrPNXmybbFVkv6WpEDlBUS5U4QL7TjszUNIpiQ2KPinerIVpHrWyr3_5eSYzKMZOM6rDA0MHp2h8NcjgdVAgn4lX8H-hO5nSNnucx5KIVL7gzzydBEkT5gg22flKMqXNxo-v7B1s4AtOjUdJPs-NSizPne8bx-6CJuiPych53vEd8s' },
     ];
 
     // ========== SIDEBAR / NAVIGATION ==========
@@ -918,8 +1007,16 @@
 
     function renderTreatments() {
         const grid = document.getElementById('treatments-grid');
-        grid.innerHTML = treatments.map(t => `
-            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all">
+        grid.innerHTML = treatments.map((t, idx) => `
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all group relative">
+                <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="editTreatment(${idx})" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all" title="Szerkesztés">
+                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </button>
+                    <button onclick="deleteTreatment(${idx})" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-rose-400 hover:bg-slate-700 transition-all" title="Törlés">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </div>
                 <div class="w-12 h-12 rounded-xl bg-blue-900/20 text-blue-400 flex items-center justify-center mb-4">
                     <span class="material-symbols-outlined">${t.icon}</span>
                 </div>
@@ -931,10 +1028,21 @@
 
     function renderDoctors() {
         const grid = document.getElementById('doctors-grid');
-        grid.innerHTML = doctors.map(d => `
-            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all">
+        grid.innerHTML = doctors.map((d, idx) => `
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800/50 hover:border-blue-900/50 transition-all group relative">
+                <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="editDoctor(${idx})" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-blue-400 hover:bg-slate-700 transition-all" title="Szerkesztés">
+                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </button>
+                    <button onclick="deleteDoctor(${idx})" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-rose-400 hover:bg-slate-700 transition-all" title="Törlés">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </div>
                 <div class="flex items-center gap-4 mb-4">
-                    <img alt="${d.name}" class="w-14 h-14 rounded-full border-2 border-slate-800 object-cover" src="${d.img}"/>
+                    ${d.img
+                        ? `<img alt="${d.name}" class="w-14 h-14 rounded-full border-2 border-slate-800 object-cover" src="${d.img}"/>`
+                        : `<div class="w-14 h-14 rounded-full border-2 border-slate-800 bg-blue-900/30 flex items-center justify-center text-blue-400 font-bold text-lg">${getInitials(d.name)}</div>`
+                    }
                     <div>
                         <h3 class="font-bold text-white">${d.name}</h3>
                         <p class="text-sm text-slate-400">${d.specialty}</p>
@@ -1005,7 +1113,7 @@
     document.getElementById('open-new-patient-modal').addEventListener('click', () => openModal('patient-modal'));
 
     // Close modals on overlay click
-    ['appointment-modal', 'patient-modal'].forEach(id => {
+    ['appointment-modal', 'patient-modal', 'treatment-modal', 'doctor-modal'].forEach(id => {
         document.getElementById(id).addEventListener('click', (e) => {
             if (e.target === document.getElementById(id)) closeModal(id);
         });
@@ -1050,6 +1158,103 @@
         closeModal('patient-modal');
         e.target.reset();
         showToast('Új páciens rögzítve!');
+    });
+
+    // ========== TREATMENTS CRUD ==========
+    function openTreatmentModal(editIdx) {
+        const form = document.getElementById('treatment-form');
+        const title = document.getElementById('treatment-modal-title');
+        form.reset();
+        if (editIdx !== undefined && editIdx >= 0) {
+            const t = treatments[editIdx];
+            title.textContent = 'Kezelés szerkesztése';
+            form.elements.editIndex.value = editIdx;
+            form.elements.name.value = t.name;
+            form.elements.price.value = t.price;
+            form.elements.icon.value = t.icon;
+        } else {
+            title.textContent = 'Új kezelés hozzáadása';
+            form.elements.editIndex.value = -1;
+        }
+        openModal('treatment-modal');
+    }
+
+    function editTreatment(idx) {
+        openTreatmentModal(idx);
+    }
+
+    function deleteTreatment(idx) {
+        treatments.splice(idx, 1);
+        renderTreatments();
+        showToast('Kezelés törölve');
+    }
+
+    document.getElementById('treatment-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const editIdx = parseInt(fd.get('editIndex'));
+        const data = { name: fd.get('name'), price: fd.get('price'), icon: fd.get('icon') };
+
+        if (editIdx >= 0) {
+            treatments[editIdx] = { ...treatments[editIdx], ...data };
+            showToast('Kezelés frissítve!');
+        } else {
+            const newId = treatments.length ? Math.max(...treatments.map(t => t.id)) + 1 : 1;
+            treatments.push({ id: newId, ...data });
+            showToast('Új kezelés hozzáadva!');
+        }
+        renderTreatments();
+        closeModal('treatment-modal');
+        e.target.reset();
+    });
+
+    // ========== DOCTORS CRUD ==========
+    function openDoctorModal(editIdx) {
+        const form = document.getElementById('doctor-form');
+        const title = document.getElementById('doctor-modal-title');
+        form.reset();
+        if (editIdx !== undefined && editIdx >= 0) {
+            const d = doctors[editIdx];
+            title.textContent = 'Orvos szerkesztése';
+            form.elements.editIndex.value = editIdx;
+            form.elements.name.value = d.name;
+            form.elements.specialty.value = d.specialty;
+            form.elements.slots.value = d.slots;
+            form.elements.img.value = d.img || '';
+        } else {
+            title.textContent = 'Új orvos hozzáadása';
+            form.elements.editIndex.value = -1;
+        }
+        openModal('doctor-modal');
+    }
+
+    function editDoctor(idx) {
+        openDoctorModal(idx);
+    }
+
+    function deleteDoctor(idx) {
+        doctors.splice(idx, 1);
+        renderDoctors();
+        showToast('Orvos törölve');
+    }
+
+    document.getElementById('doctor-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const editIdx = parseInt(fd.get('editIndex'));
+        const data = { name: fd.get('name'), specialty: fd.get('specialty'), slots: fd.get('slots'), img: fd.get('img') || '' };
+
+        if (editIdx >= 0) {
+            doctors[editIdx] = { ...doctors[editIdx], ...data };
+            showToast('Orvos adatai frissítve!');
+        } else {
+            const newId = doctors.length ? Math.max(...doctors.map(d => d.id)) + 1 : 1;
+            doctors.push({ id: newId, ...data });
+            showToast('Új orvos hozzáadva!');
+        }
+        renderDoctors();
+        closeModal('doctor-modal');
+        e.target.reset();
     });
 
     // ========== INIT ==========
