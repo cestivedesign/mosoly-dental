@@ -82,8 +82,40 @@
             vertical-align: middle;
         }
         .glass-nav {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .glass-nav::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse 35% 50% at 15% 50%, rgba(0,63,135,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 30% 45% at 85% 50%, rgba(3,73,79,0.10) 0%, transparent 70%),
+                radial-gradient(ellipse 25% 35% at 50% 20%, rgba(172,199,255,0.15) 0%, transparent 70%);
+            animation: liquidFlow 8s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .glass-nav::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.08) 100%);
+            z-index: -1;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        @keyframes liquidFlow {
+            0%, 100% { transform: translate(0%, 0%) rotate(0deg); }
+            25% { transform: translate(8%, -5%) rotate(1deg); }
+            50% { transform: translate(-5%, 8%) rotate(-0.5deg); }
+            75% { transform: translate(-8%, -3%) rotate(0.5deg); }
         }
         .cta-gradient {
             background: linear-gradient(135deg, #003f87 0%, #0056b3 100%);
@@ -139,7 +171,7 @@
 
     <!-- Main Navigation -->
     <header class="fixed top-0 md:top-10 w-full z-50 px-4 md:px-8">
-        <nav class="max-w-screen-2xl mx-auto glass-nav bg-white/70 rounded-full shadow-sm py-4 px-8 flex justify-between items-center border border-white/20">
+        <nav class="max-w-screen-2xl mx-auto glass-nav bg-white/50 rounded-full shadow-lg shadow-black/[0.03] py-4 px-8 flex justify-between items-center border border-white/40">
             <a href="index.html" class="flex items-center gap-2">
                 <span class="text-2xl font-extrabold tracking-tighter text-primary font-headline">Mosoly Dental</span>
             </a>
